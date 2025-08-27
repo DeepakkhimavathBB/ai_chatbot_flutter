@@ -1,0 +1,28 @@
+name: ai_chatbot
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_local_notifications: ^14.0.0
+  timezone: ^0.9.0
+  cupertino_icons: ^1.0.8
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.13        # downgrade to fix conflict
+  hive_generator: ^1.1.1       # compatible with build_runner 2.4.x
+
+flutter:
+  uses-material-design: true
