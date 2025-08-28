@@ -6,21 +6,25 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  /// Initialize notification and timezone settings
   static Future<void> init() async {
-    // Initialize timezone
+    // Initialize timezone data
     tzdata.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Kolkata')); // change if needed
 
-    // Initialize notifications
-    final AndroidInitializationSettings initializationSettingsAndroid =
+    // Android initialization
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final InitializationSettings initializationSettings =
+    // Combine platform settings
+    const InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
 
+    // Initialize the plugin
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
+  /// Schedule a notification at a specific date and time
   static Future<void> scheduleAlarm(
       int id, String title, String body, DateTime dateTime) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -28,7 +32,7 @@ class NotificationService {
       title,
       body,
       tz.TZDateTime.from(dateTime, tz.local),
-      NotificationDetails(
+      const NotificationDetails(
         android: AndroidNotificationDetails(
           'alarm_channel',
           'Alarm Notifications',
@@ -39,9 +43,11 @@ class NotificationService {
           enableVibration: true,
         ),
       ),
-      androidAllowWhileIdle: true,
+      // 👇 New API usage
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: null,
     );
   }
 }
