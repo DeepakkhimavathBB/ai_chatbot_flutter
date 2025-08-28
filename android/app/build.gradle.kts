@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -11,11 +10,10 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        // Still using Java 11 features
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        // ✅ Turn on core library desugaring
-        coreLibraryDesugaringEnabled true
+        // ✅ Correct Kotlin DSL way
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -31,7 +29,7 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
@@ -42,8 +40,6 @@ flutter {
 }
 
 dependencies {
-    // Your other dependencies that might be auto‑injected by Flutter
-
-    // ✅ Add this for Java 8+ API backporting
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+    // ✅ Kotlin DSL syntax for desugaring dependency
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
