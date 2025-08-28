@@ -43,10 +43,7 @@ class NotificationService {
           enableVibration: true,
         ),
       ),
-      // 👇 New API usage
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: null,
     );
   }
